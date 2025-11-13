@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinkterest - Inspirasi dalam Warna Pinkmu</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. Variabel Warna Tema Pink --- */
+        :root {
+            --hot-pink: #FF69B4;
+            --light-pink: #FFB6C1;
+            --lavender-blush: #FFF0F5;
+            --deep-pink: #C71585;
+            --white: #FFFFFF;
+            --text-color: #333;
+            --border-color: #f0e6e6;
+        }
+
+        /* --- 2. Reset & Global Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--lavender-blush);
+            color: var(--text-color);
+            overflow-x: hidden; /* Mencegah scroll horizontal */
+        }
+
+        /* --- 3. Header --- */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--hot-pink);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 8px;
+            background: linear-gradient(135deg, var(--light-pink), var(--hot-pink));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 20px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid var(--border-color);
+            background-color: #e9e9e9;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--hot-pink);
+            box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        
+        .icon-btn:hover {
+            background-color: var(--lavender-blush);
+            color: var(--hot-pink);
+        }
+
+        .profile-pic {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* --- 4. Layout Utama (Sidebar + Konten) --- */
+        .main-container {
+            display: flex;
+        }
+
+        /* --- 5. Sidebar Navigasi --- */
+        .sidebar {
+            width: 240px;
+            padding: 20px;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+        }
+
+        .sidebar nav li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background-color: var(--light-pink);
+            color: var(--deep-pink);
+        }
+
+        .sidebar nav span {
+            margin-left: 15px;
+            font-size: 16px;
+        }
+        
+        .create-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--hot-pink);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .create-btn:hover {
+            background-color: var(--deep-pink);
+        }
+
+        /* --- 6. Grid Konten Pinterest (Masonry) --- */
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .masonry-grid {
+            column-count: 5; /* Jumlah kolom di desktop */
+            column-gap: 16px;
+        }
+
+        .pin-card {
+            position: relative;
+            break-inside: avoid; /* Mencegah kartu terpotong */
+            margin-bottom: 16px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--white);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .pin-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pin-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .pin-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pin-card:hover .pin-overlay {
+            opacity: 1;
+        }
+        
+        .save-btn {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 10px 20px;
+            background-color: var(--hot-pink);
+            color: var(--white);
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .save-btn:hover {
+            background-color: var(--deep-pink);
+        }
+        
+        .save-btn.saved {
+            background-color: var(--deep-pink);
+        }
+
+        .pin-details {
+            color: var(--white);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .pin-details h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .pin-details p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* --- 7. Responsive Design --- */
+        @media (max-width: 1200px) {
+            .masonry-grid { column-count: 4; }
+        }
+        @media (max-width: 900px) {
+            .masonry-grid { column-count: 3; }
+            .sidebar { display: none; } /* Sembunyikan sidebar di tablet */
+        }
+        @media (max-width: 600px) {
+            .masonry-grid { column-count: 2; }
+            .header { padding: 10px; }
+            .search-bar { margin: 0 10px; }
+            .logo span { display: none; } /* Hanya tampilkan ikon logo */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- --- HEADER --- -->
+    <header class="header">
+        <a href="#" class="logo">
+            <div class="logo-icon">P</div>
+            <span>Pinkterest</span>
+        </a>
+        <div class="search-bar">
+            <form onsubmit="handleSearch(event)">
+                <input type="search" placeholder="Cari inspirasi pink-mu..." aria-label="Search">
+            </form>
+        </div>
+        <div class="header-icons">
+            <button class="icon-btn" title="Notifikasi">🔔</button>
+            <button class="icon-btn" title="Pesan">💬</button>
+            <img src="https://i.pravatar.cc/150?img=68" alt="Profil" class="profile-pic">
+        </div>
+    </header>
+
+    <!-- --- KONTAINER UTAMA --- -->
+    <div class="main-container">
+        
+        <!-- --- SIDEBAR --- -->
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#" class="active"><span>🏠</span> Beranda</a></li>
+                    <li><a href="#"><span>🧭</span> Jelajahi</a></li>
+                    <li><a href="#"><span>💖</span> Suka</a></li>
+                </ul>
+            </nav>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--border-color);">
+            <button class="create-btn" onclick="alert('Fitur 'Buat' segera hadir!')">
+                <span style="margin-right: 8px;">+</span> Buat
+            </button>
+        </aside>
+
+        <!-- --- KONTEN GRID --- -->
+        <main class="content">
+            <div class="masonry-grid" id="pinGrid">
+                <!-- Pin akan di-generate oleh JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- 8. JavaScript untuk Interaksi & Data Dinamis ---
+
+        // Data contoh untuk Pin
+        const pinData = [
+            { id: 1, img: 'https://picsum.photos/seed/pink1/200/300', title: 'Inspirasi Kamar Tidur Pink', author: 'decor_lover' },
+            { id: 2, img: 'https://picsum.photos/seed/pink2/200/400', title: 'Resep Cupcake Strawberry', author: 'baking_queen' },
+            { id: 3, img: 'https://picsum.photos/seed/pink3/200/250', title: 'Ootd Pink aesthetic', author: 'fashionista_id' },
+            { id: 4, img: 'https://picsum.photos/seed/pink4/200/350', title: 'Seni Lukisan Bunga Sakura', author: 'art_by_me' },
+            { id: 5, img: 'https://picsum.photos/seed/pink5/200/280', title: 'Desain Kuku Pink Glitter', author: 'nail_art_daily' },
+            { id: 6, img: 'https://picsum.photos/seed/pink6/200/320', title: 'Susu Strawberry Segar', author: 'healthy_drinks' },
+            { id: 7, img: 'https://picsum.photos/seed/pink7/200/290', title: 'Sunset Langit Pink', author: 'nature_photog' },
+            { id: 8, img: 'https://picsum.photos/seed/pink8/200/410', title: 'Gaun Pesta Pink Fuchsia', author: 'dream_dress' },
+            { id: 9, img: 'https://picsum.photos/seed/pink9/200/260', title: 'DIY Aksesoris Pink', author: 'crafty_corner' },
+            { id: 10, img: 'https://picsum.photos/seed/pink10/200/380', title: 'Wallpaper Bunga Mawar', author: 'phone_wallpapers' },
+            { id: 11, img: 'https://picsum.photos/seed/pink11/200/300', title: 'Pink Paradise Beach', author: 'wanderlust_soul' },
+            { id: 12, img: 'https://picsum.photos/seed/pink12/200/270', title: 'Kue Tart Ulang Tahun', author: 'sweet_cakes' },
+        ];
+
+        // Fungsi untuk membuat elemen Pin
+        function createPin(pin) {
+            const card = document.createElement('div');
+            card.className = 'pin-card';
+            card.innerHTML = `
+                <img src="${pin.img}" alt="${pin.title}">
+                <div class="pin-overlay">
+                    <button class="save-btn" data-pin-id="${pin.id}" onclick="toggleSave(this)">Simpan</button>
+                    <div class="pin-details">
+                        <h3>${pin.title}</h3>
+                        <p>${pin.author}</p>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        // Fungsi untuk merender semua Pin ke dalam grid
+        function renderPins() {
+            const pinGrid = document.getElementById('pinGrid');
+            pinData.forEach(pin => {
+                pinGrid.appendChild(createPin(pin));
+            });
+        }
+
+        // Fungsi untuk menangani klik tombol "Simpan"
+        function toggleSave(button) {
+            if (button.classList.contains('saved')) {
+                button.classList.remove('saved');
+                button.textContent = 'Simpan';
+            } else {
+                button.classList.add('saved');
+                button.textContent = 'Tersimpan';
+            }
+        }
+
+        // Fungsi untuk handle pencarian (hanya contoh)
+        function handleSearch(event) {
+            event.preventDefault(); // Mencegah reload halaman
+            const searchValue = event.target.querySelector('input').value;
+            if (searchValue) {
+                alert(`Mencari: "${searchValue}". Fitur ini akan segera hadir!`);
+            }
+        }
+
+        // Jalankan fungsi render saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', renderPins);
+
+    </script>
+
+</body>
+</html>
